@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mainclass {
+            height: 99vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .main {
+            height: 70vh;
+            width: 35vw;
+        }
+        input {
+            padding: 12px;
+            width: 22vw;
+            margin-left: 19%;
+            margin-right: 17%;
+            border-radius: 5px;
+        }
+        button {
+            margin-left: 210px; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(85, 17, 42);
+            color: whitesmoke;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: rgb(100, 30, 50);
+        }
+    </style>
+</head>
+<body>
+
+<div class="mainclass">
+    <div class="main">
+        <h1 style="text-align: center;color: rgb(236, 182, 181);">Register</h1>
+        <p style="text-align: center;">Please fill in the fields below:</p>
+        <br>
+        <input id="FirstName" type="text" placeholder="FirstName"> <br>
+        <br>
+        <input id="LastName" type="text" placeholder="LastName"> <br>
+        <br>
+        <input id="email" type="email" placeholder="Email"> <br>
+        <br>
+        <input id="password" type="password" placeholder="Password"> 
+        <br>
+        <br>
+        <button id="btn" onclick="bye()">CREATE ACCOUNT</button>
+        <p style="text-align: center;">Already have an account?<a style="color: black;" href="Login.html"> Login</a></p>
+    </div>
+</div>
+
+<script>
+    async function hi() {
+        var res = await fetch("http://localhost:5000/users");
+        var data = await res.json();
+        console.log(data);
+    }
+
+    async function bye() {
+        var firstname = document.getElementById("FirstName").value;
+        var last = document.getElementById("LastName").value;
+        var email = document.getElementById("email").value;
+        var pass = document.getElementById("password").value;
+
+        if (!firstname || !last || !email || !pass) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        var userData = {
+            name: firstname + " " + last,
+            email: email,
+            password: pass
+        };
+
+        try {
+            var response = await fetch("http://localhost:5000/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userData) 
+            });
+
+            if (response.ok) {
+                var newUser = await response.json();
+                console.log("User created:", newUser);
+                alert("Account created successfully!");
+                
+                document.getElementById("FirstName").value = '';
+                document.getElementById("LastName").value = '';
+                document.getElementById("email").value = '';
+                document.getElementById("password").value = '';
+            } else {
+                throw new Error("Network response was not ok");
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+        }
+
+        hi(); 
+    }
+</script>
+
+</body>
+</html>

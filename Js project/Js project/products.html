@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="products.js"></script> -->
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+            box-sizing: border-box;
+        }
+        .nav{
+            position: sticky;
+            top: 0px;
+            height: 11vh;
+            display: flex;
+            justify-content:space-between;
+            align-items: center;
+            padding: 15px 15px;
+            background-color: rgb(236, 236, 236);
+        }
+        .nav a{
+            text-decoration: none;
+            color: black;
+            padding-left: 30px;
+        }
+        .main{
+            display: flex;
+            align-items: center;
+        }
+        .parent{
+            display: grid;
+            grid-template-columns: auto auto auto;
+            align-items: center;
+            justify-content: space-around;
+            row-gap: 3%;
+        }
+        .btn1{
+            border: none;
+            background-color: rgb(85, 17, 42);
+            border-radius: 4px;
+            color: whitesmoke;
+            /* margin-bottom: 30%; */
+        }
+
+        .results {
+          max-height: 300px;
+          overflow-y: auto; /* Scrollable if too many results */
+          border: 1px solid #ddd;
+          padding: 10px;
+          background-color: #f9f9f9;
+      }
+      
+      .product-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 10px;
+          border-bottom: 1px solid #ddd;
+      }
+      
+      .product-item img {
+          width: 50px; /* Set the image size */
+          height: auto; /* Maintain aspect ratio */
+          margin-right: 10px; /* Space between image and text */
+      }
+      
+      .btn-add {
+          border: none;
+          background-color: rgb(85, 17, 42);
+          color: white;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+      }
+      .footer{
+
+        height: 60vh;
+        width: 98.7vw;
+        border: 2px solid red;
+        display: flex;
+        justify-content: space-around;
+        background-color: rgb(34, 7, 16);
+        color: white;
+        line-height: 27px;
+      }
+    
+              
+
+            
+
+
+    </style>
+</head>
+<body>
+
+    
+    <div class="nav">
+        <div class="main">
+            <div>
+                <img height="50px" width="110px" src="logo_2_7325edbd-6cde-43df-9c57-5a335da4f2d8_230x.avif" alt="">
+            </div>
+            <a href="#">Home</a>
+            <a href="#">Buy Candy</a>
+            <a href="#">Gift Boxes</a>
+        </div>
+
+        <div>
+          
+          <button style="border: none;" id="search">
+            
+            <img height="30px"  src="Search_Icon.svg (1).png" alt="">
+          </button>
+          
+
+            <a href="Login.html">
+                <img height="30px" src="person_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            </a>
+            <a class="card" href="addtocard.html">
+                <img height="30px" src="shopping_cart_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg" alt="">
+            </a>
+        </div>
+
+    </div>
+
+    <div>
+        <img width="100%" src="website_banner_748783e1-f131-4fa0-9277-2d1a74b3241c.webp" alt="">
+    </div>
+    <br>
+    <h1 style="text-align: center;color: rgb(254, 212, 206);">Trending Now</h1>
+
+    <br>
+    <br>
+
+    <div id="search-container" class="search-container">
+      <input style="margin-left: 80px;padding: 5px 15px 5px 10px;" type="text" id="search-input" placeholder="Search for products...">
+      <div id="results" class="results"></div>
+  </div>
+
+  
+
+ 
+
+
+
+  
+
+
+ 
+
+
+
+  
+
+    <script>
+
+var arr =    [
+  {
+    "title": "Lemon Candy",
+    "price": 100.55,
+    "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
+    "category": "men's clothing",
+    "image": "lemon candy.webp",
+    "rating": {
+      "rate": 3.69,
+      "count": 120
+    }
+  },
+  {
+    "title": "Fruit Ball",
+    "price": 90.55,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "fruit ball.webp",
+    "rating": {
+      "rate": 4.51,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Cola Candy",
+    "price": 90.55,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "cola candy.webp",
+    "rating": {
+      "rate": 4.51,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Mint Candy",
+    "price": 100.35,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "mint candy.webp",
+    "rating": {
+      "rate": 4.51,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Lychee Candy",
+    "price": 122.53,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "lychee candy.webp",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Mixed Fruit Candy",
+    "price": 122.53,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "mixed fruit candy.webp",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Cola candy",
+    "price": 122.53,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "combo3.webp",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Cola candy",
+    "price": 122.53,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "combo.webp",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+
+  {
+    "title": "Cola candy",
+    "price": 122.53,
+    "description": "Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.",
+    "category": "men's clothing",
+    "image": "combo2.webp",
+    "rating": {
+      "rate": 4.1,
+      "count": 259
+    }
+  },
+]
+var parent = document.createElement("div");
+parent.setAttribute("class","parent")
+
+var arr1 = []
+
+let totalPrice = 0; // Initialize total price variable
+const totalPriceDisplay = document.createElement('div'); // Create a div to display total price
+totalPriceDisplay.id = 'total-price'; // Set an ID for styling or easy reference
+totalPriceDisplay.innerHTML = `<strong>Total Price:</strong> $${totalPrice.toFixed(2)}`;
+document.body.appendChild(totalPriceDisplay); 
+
+
+
+newarray = arr.map(function(val){
+
+    
+    var main = document.createElement("div");
+
+    var image = document.createElement("img");
+    image.setAttribute("src",val.image)
+    image.style.borderRadius = "10px";
+    //image.style.border = "2px solid red";
+
+    var title = document.createElement("p");
+    title.innerHTML = val.title;
+    title.style.paddingLeft = "33%";
+
+    var price = document.createElement("p");
+    price.innerHTML = "<b>price :</b>"+ " " + val.price;
+    price.style.paddingLeft = "33%";
+    price.style.marginTop = "1%";
+
+    var add = document.createElement("button");
+    add.innerHTML = "Add to card";
+    add.setAttribute("class","btn1")
+    add.style.marginTop = "1%"
+    add.style.paddingLeft = "35%";
+    add.style.paddingRight = "40%";
+    add.style.paddingTop = "2%";
+    add.style.paddingBottom = "2%";
+
+
+    add.addEventListener("click", function() {
+      console.log(val); // This should now log the correct object
+      arr1.push(val)
+      totalPrice += val.price; // Update total price
+
+      localStorage.setItem("arr",JSON.stringify(arr1))
+      localStorage.setItem("totalPrice", totalPrice);
+      totalPriceDisplay.innerHTML = `<strong>Total Price:</strong> $${totalPrice.toFixed(2)}`; // Update displayed total price
+        console.log(`Added ${val.title} to cart. Total price: $${totalPrice.toFixed(2)}`);
+
+    
+
+
+
+
+    });
+    
+    parent.append(main);
+    main.append(image,title,price,add)
+    
+    
+    
+    
+    console.log(parent);
+    
+    document.body.appendChild(parent)
+  })
+
+  
+
+
+const button1 = document.getElementById("search");
+const searchContainer = document.getElementById('search-container');
+const searchInput = document.getElementById('search-input');
+const resultsDiv = document.getElementById('results');
+
+// Toggle search container visibility
+button1.addEventListener("click", () => {
+    searchContainer.classList.toggle('active'); // Show or hide the search container
+    searchInput.focus(); // Focus on the input field when opened
+});
+
+// Filter products based on input
+searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    console.log(query);
+    
+    resultsDiv.innerHTML = ''; // Clear previous results
+
+    if (query) {
+        const filteredProducts = arr.filter(product => 
+            product.title.toLowerCase().includes(query)
+        );
+        
+        filteredProducts.forEach(product => {
+            const div = document.createElement('div');
+            div.classList.add('product-item');
+
+            const img = document.createElement('img');
+            img.src = product.image; // Set product image
+            img.alt = product.title;
+
+            const detailsDiv = document.createElement('div');
+            detailsDiv.innerHTML = `<strong>${product.title}</strong> - $${product.price}`;
+
+            const addButton = document.createElement('button');
+            addButton.innerHTML = "Add to Cart";
+            addButton.classList.add('btn-add');
+            addButton.marginTop = "100px"
+            addButton.addEventListener("click", () => {
+               // console.log(`Added ${product.title} to cart`);
+
+                arr1.push(product); // Add product to cart array
+                totalPrice += product.price;
+                localStorage.setItem("arr", JSON.stringify(arr1)); // Save cart to local storage
+                //console.log(`Added ${product.title} to cart`);
+                //console.log(`Added ${product.title} to cart. Total price: $${totalPrice.toFixed(2)}`);
+
+                totalPriceDisplay.innerHTML = `<strong>Total Price:</strong> $${totalPrice.toFixed(2)}`; // Update displayed total price
+                console.log(`Added ${val.title} to cart. Total price: $${totalPrice.toFixed(2)}`);
+
+
+               
+            });
+
+            div.appendChild(img);
+            div.appendChild(detailsDiv);
+            div.appendChild(addButton);
+            resultsDiv.appendChild(div);
+        });
+    }
+});
+
+
+ </script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="footer">
+
+  <div>
+    <h5><b>MAIN MENU</b></h5>
+    <br>
+    <p>Home</p>
+    <p>Buy Candy</p>
+    <p>Crazy Candies</p>
+    <p>Merchandise</p>
+    <p>Special Orders</p>
+    <p>Events</p>
+    <p>Own a Franchise</p>
+    <p>Store Location</p>
+  </div>
+
+  <div>
+    <h5><b>EVENTS</b></h5>
+    <br>
+    <p>Birthday parties</p>
+    <p>Company Events</p>
+    <p>Custom Packaging</p>
+    <p>Wedding Gifts</p>
+    <p>Bulk Orders</p>
+  </div>
+
+  <div>
+    <h5><b>CUSTOMER SERVIES</b></h5>
+    <br>
+    <p>About As</p>
+    <p>FAQ</p>
+    <p>Contact us</p>
+    <p>Return Policies</p>
+    <p>Privacy Policies</p>
+    <p>Blog</p>
+    <p>Store Locator</p>
+    <p>News</p>
+    <p>Terms & Conditions</p>
+    <p>Media Mentions</p>
+  </div>
+
+  <div>
+    <h5><b>STAY CONNECTED</b></h5>
+    <br>
+  </div>
+  
+  
+  
+</div>
+<img height="100px" src="order-in-bullk.htm" alt="">
+
+    
+</body>
+</html>

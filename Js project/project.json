@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "name": "Gontla Vineeth",
+      "email": "gontlavineeth2@gmail.com",
+      "password": "Vineeth@123",
+      "id": 1
+    },
+    {
+      "name": "vineeth Gontla",
+      "email": "vgontla@gitam.in",
+      "password": "chiru",
+      "id": 2
+    },
+    {
+      "name": "Gontla Vineeth",
+      "email": "saisaivineeth123@gmail.com",
+      "password": "12345",
+      "id": 3
+    }
+  ]
+}

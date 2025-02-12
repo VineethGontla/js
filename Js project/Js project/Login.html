@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        .mainone{
+
+            height: 99vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+            
+
+        .main{
+            height: 70vh;
+            width: 40vw;
+            /* border: 2px solid black; */
+        }
+        .details{
+            padding: 12px;
+            width: 22vw;
+            border-radius: 5px;
+            margin-left: 22%;
+        }
+        
+
+        button {
+            margin-left: 280px; 
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(85, 17, 42);
+            color: whitesmoke;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: rgb(100, 30, 50);
+        }
+            
+
+    </style>
+</head>
+<body>
+
+    <div class="mainone">
+        <div class="main">
+            <h1 style="text-align: center;color: rgb(236, 182, 181);">Login</h1>
+            <br>
+            <p style="text-align: center;">Please enter your e-mail and password:</p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <input id="email" class="details" type="email" placeholder="Email"> <br> <br>
+            <input id="pass" class="details" type="password" placeholder="password">
+            <br>
+            <br> 
+            <br>
+
+            <button id="btn1">Login</button>
+            <p style="text-align: center;">New customer?<a style="color: black;" href="newaccount.html">Create an account</a></p>
+    
+        </div>
+
+    </div>
+
+
+
+
+
+    
+
+    <script>
+        var btn = document.getElementById("btn1");
+        console.log(btn);
+
+        btn.addEventListener("click",async function(){
+            var email= document.getElementById("email").value;
+            var pass = document.getElementById("pass").value;
+
+            console.log(email,pass)
+
+            if(!email || !pass){
+                alert("Please fill the all fields")
+            }
+
+            try{
+
+                const response = await fetch("http://localhost:5000/users")
+                const users = await response.json()
+
+                const user = users.find(u=>u.email===email && u.password===pass)
+
+                if(user){
+                    alert("Login successfull")
+                    console.log("user logged in",user)
+
+                    window.open("products.html")
+
+
+                }else{
+                    alert("Invalid email or password.please try again.")
+                }
+
+
+
+            }catch(error){
+                console.error("Error",error);
+                alert("An error occurred please try again.")
+            }
+            
+
+            
+            
+
+            
+
+        });
+
+
+        
+        
+
+
+
+       
+
+    </script>
+</body>
+</html>

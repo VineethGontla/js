@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <style>
+        .parent {
+            display: grid;
+            grid-template-columns: auto auto auto;
+            align-items: center;
+            justify-content: space-around;
+            row-gap: 3%;
+        }
+        img {
+            width: 50px; /* Set a width for the image */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Your Cart</h1>
+    <div id="total-price"></div>
+    <div class="parent" id="product-container"></div>
+
+    <script>
+        var data = JSON.parse(localStorage.getItem("arr")) || []; // Ensure data is an array
+        var parent = document.getElementById("product-container");
+        let totalPrice = 0; // Initialize total price variable
+
+        // Check if there are products in the cart
+        if (data.length === 0) {
+            parent.innerHTML = "<p>No products in cart.</p>";
+        } else {
+            // Display each product
+            data.forEach((val) => {
+                console.log(val);
+                
+                var main = document.createElement("div");
+
+                var image = document.createElement("img");
+                image.setAttribute("src", val.image);
+
+                var title = document.createElement("p");
+                title.innerHTML = val.title;
+
+                var price = document.createElement("p");
+                price.innerHTML = `$${val.price.toFixed(2)}`; // Format price to 2 decimal places
+                totalPrice += val.price; // Add price to total
+
+                var del = document.createElement("button");
+                del.innerHTML = "Delete";
+                del.style.marginLeft = "5px";
+
+                // Delete button functionality
+                del.addEventListener("click", () => {
+                    // Remove from local storage and update total price
+                    data = data.filter(item => item.title !== val.title); // Remove the item from data
+                    localStorage.setItem("arr", JSON.stringify(data)); // Update local storage
+                    main.remove(); // Remove the item from the DOM
+                    updateTotalPrice(); // Update the total price display
+                });
+
+                var back = document.createElement("button");
+                back.innerHTML = "Back";
+                back.addEventListener("click", () => {
+                    window.open("products.html", "_self");
+                });
+
+                parent.appendChild(main);
+                main.append(image, title, price, del);
+            });
+
+            // Display total price
+            function updateTotalPrice() {
+                document.getElementById("total-price").innerHTML = `<strong>Total Price:</strong> $${totalPrice.toFixed(2)}`;
+            }
+            updateTotalPrice(); // Initial total price display
+        }
+    </script>
+    
+</body>
+</html>
